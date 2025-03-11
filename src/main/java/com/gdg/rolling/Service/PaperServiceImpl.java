@@ -16,11 +16,14 @@ public class PaperServiceImpl implements PaperService {
     private final PaperRepository paperRepository;
 
     @Override
-    public void createPaper(String name) {
-        paperRepository.save(Paper.builder()
+    public Long createPaper(String name) {
+        Paper paper = paperRepository.save(Paper.builder()
                 .name(name)
                 .build());
+
+        return paper.getId(); // 생성된 Paper의 ID 반환
     }
+
 
     @Override
     public List<GetPapersDto> getPapers() {
