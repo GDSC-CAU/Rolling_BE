@@ -20,7 +20,7 @@ public class GetMemberDto {
         this.name = name;
         this.video = video;
         this.phone = phone;
-        instagram = instagram;
+        this.instagram = instagram;
         this.ps = ps;
     }
 }
