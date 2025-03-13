@@ -19,12 +19,16 @@ public class S3Manager {
 
     public String uploadFile(MultipartFile file) throws Exception {
         try {
-            String fileName = file.getOriginalFilename();
-            String fileUrl = "https://" + bucket + "/upload/" + fileName;
+            String fileName = "upload/" + file.getOriginalFilename(); // ✅ S3 경로 포함
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(file.getContentType());
             metadata.setContentLength(file.getSize());
-            amazonS3Client.putObject(bucket,fileName, file.getInputStream(), metadata);
+
+            // ✅ S3에 파일 업로드
+            amazonS3Client.putObject(bucket, fileName, file.getInputStream(), metadata);
+
+            // ✅ 올바른 S3 URL 반환
+            String fileUrl = amazonS3Client.getUrl(bucket, fileName).toString();
             return fileUrl;
         } catch (IOException e) {
             throw new Exception(e);
